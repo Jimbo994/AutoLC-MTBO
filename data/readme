@@ -1,0 +1,4 @@
+debug -> same offline as online
+pwl -> piece wise linear version of online as offline function
+thompson -> thompson sampling instead of UCB
+maxu -> picking maximum point in online posterior

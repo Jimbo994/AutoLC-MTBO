@@ -1,0 +1,17 @@
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** JOB 3063179 ON gcn20 CANCELLED AT 2023-07-15T23:56:58 DUE TO TIME LIMIT ***
+slurmstepd: error: *** STEP 3063179.0 ON gcn20 CANCELLED AT 2023-07-15T23:56:58 DUE TO TIME LIMIT ***
+
+JOB STATISTICS
+==============
+Job ID: 3063179
+Cluster: snellius
+User/Group: boelrijkj/boelrijkj
+State: TIMEOUT (exit code 0)
+Nodes: 1
+Cores per node: 18
+CPU Utilized: 2-14:34:41
+CPU Efficiency: 7.24% of 36-00:01:12 core-walltime
+Job Wall-clock time: 2-00:00:04
+Memory Utilized: 2.83 GB
+Memory Efficiency: 0.00% of 0.00 MB

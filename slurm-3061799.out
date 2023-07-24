@@ -1,0 +1,45 @@
+Running on device:  cuda
+Trial 1 out of 5
+Done with initial random experiments
+Starting Multi Task BO loop
+Trial 2 out of 5
+Done with initial random experiments
+Starting Multi Task BO loop
+Trial 3 out of 5
+Done with initial random experiments
+Starting Multi Task BO loop
+Trial 4 out of 5
+Done with initial random experiments
+Starting Multi Task BO loop
+Trial 5 out of 5
+Done with initial random experiments
+Starting Multi Task BO loop
+Trial 1 out of 5
+Done with initial random experiments
+Starting Multi Task BO loop
+Trial 2 out of 5
+Done with initial random experiments
+Starting Multi Task BO loop
+Trial 3 out of 5
+Done with initial random experiments
+Starting Multi Task BO loop
+Trial 4 out of 5
+Done with initial random experiments
+Starting Multi Task BO loop
+Trial 5 out of 5
+Done with initial random experiments
+Starting Multi Task BO loop
+
+JOB STATISTICS
+==============
+Job ID: 3061799
+Cluster: snellius
+User/Group: boelrijkj/boelrijkj
+State: COMPLETED (exit code 0)
+Nodes: 1
+Cores per node: 18
+CPU Utilized: 19:51:03
+CPU Efficiency: 7.51% of 11-00:17:24 core-walltime
+Job Wall-clock time: 14:40:58
+Memory Utilized: 2.82 GB
+Memory Efficiency: 0.00% of 0.00 MB
