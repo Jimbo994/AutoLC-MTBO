@@ -62,7 +62,7 @@ max_T = [100, t_M_2D]
 n_analytes = 80
 
 # Load the retention parameters created in "samplin_retention_paremters.ipynb"
-ret_pars = pd.read_csv('data/retention_system.csv').to_dict(orient='list')
+ret_pars = pd.read_csv('data/retention_system_old.csv').to_dict(orient='list')
 
 # Optimization code
 

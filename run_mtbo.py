@@ -19,7 +19,7 @@ from bo_code.BO import BO_round
 from bo_code.MTBO import generate_initial_data_mtgp, MTBO_round
 
 from rm_code.crf import resolution_score_2D
-from rm_code.retention_model import online_system, offline_system
+from rm_code.retention_model import online_system, offline_system, offline_system2
 from rm_code.plot_chromatogram import plot_chromatogram, plot_contour_spectrum,  plot_shifting_2D_gradient
 
 from utils.utils import bo_to_rm_2D, check_pars, seed_everything, best_so_far, ci
@@ -31,7 +31,7 @@ print('Running on device: ', tkwargs['device'])
 # Set some default parameters for first dimension
 t_0_1D = 4.5 # dead time
 t_D_1D = 0.1 # dwell time
-N_1D = 1000 # plate number 1D
+N_1D = 400 # plate number 1D
 t_init_1D = 2 # init time
 
 # create dictionary for the above described parameters
@@ -44,7 +44,7 @@ settings_1D = {'t_0': t_0_1D, 't_D': t_D_1D, 'N': N_1D, 't_init': t_init_1D}
 # time points of each shift have to be same in the current setup. Shift starts after the dead time of the first dimension. Shift ends at the end of the 1D program
 # each gradient in the second dimension has a dead time, gradient time and modulation time.
 
-N_2D = 5000 # plate number 2D
+N_2D = 100000 # plate number 2D
 
 t_M_2D = 2 #/ 3 # modulation time minutes
 t_G_2D = 1.8 #/ 3 # gradient time minutes
@@ -93,9 +93,9 @@ norm_bounds = torch.stack([torch.zeros(12), torch.ones(12)])
 inequality_constraints= [(torch.tensor([0,1]), torch.tensor([-1., 1.]), torch.tensor(0.0)), (torch.tensor([2,3]), torch.tensor([-1., 1.]), torch.tensor(0.1)), (torch.tensor([10,11]), torch.tensor([-1., 1.]), torch.tensor(t_M_2D)), (torch.tensor([4,8]), torch.tensor([-1., 1.]), torch.tensor(0.0)), (torch.tensor([5,9]), torch.tensor([-1., 1.]), torch.tensor(0.0))]
 
 # draw 10 random indices between 0 and n_analytes
-remove_indices = np.random.randint(0, n_analytes, 10)
+remove_indices = np.random.randint(0, n_analytes, 15)
 # create dictionary with noise levels
-noise = {'tR_1D': 2, 'tR_2D': 0.1, 'W_1D': 0.2, 'W_2D': 0.05}
+noise = {'tR_1D': 2, 'tR_2D': 0.3, 'W_1D': 0.2, 'W_2D': 0.05}
 
 # Set up an online only BO loop
 
@@ -107,7 +107,7 @@ n_init_offline = 20
 iterations = 75
 n_online = 1
 
-variations = [10,20,40,50]
+variations = [10,20,30]
 # number of trials
 trials = 10
 
@@ -167,7 +167,7 @@ for n_offline in variations:
 
         for i in range(len(pars_offline_init)):
 
-            tR_list_1D, W_list_1D, tR_list_2D, W_list_2D, res_score, time_score = offline_system(ret_pars, settings_1D, settings_2D, phi_list_1D[i], t_list_1D[i],phi_init_2D[i], phi_final_2D[i], t_list_2D[i], max_T, noise, remove_indices)
+            tR_list_1D, W_list_1D, tR_list_2D, W_list_2D, res_score, time_score = offline_system2(ret_pars, settings_1D, settings_2D, phi_list_1D[i], t_list_1D[i],phi_init_2D[i], phi_final_2D[i], t_list_2D[i], max_T, noise, remove_indices)
 
             # now we need to add the pars and scores to offline_mt
             scores_offline_mt.append(res_score - 0.1*time_score)
@@ -224,7 +224,7 @@ for n_offline in variations:
             # perform experiments on the offline system
             for i in range(len(new_pars_mt_offline)):
                 # Perform new experiment
-                tR_list_1D, W_list_1D, tR_list_2D, W_list_2D, res_score, time_score = offline_system(ret_pars, settings_1D, settings_2D, phi_list_1D[i], t_list_1D[i],phi_list_init[i], phi_list_final[i], t_list_2D[i], max_T, noise, remove_indices)
+                tR_list_1D, W_list_1D, tR_list_2D, W_list_2D, res_score, time_score = offline_system2(ret_pars, settings_1D, settings_2D, phi_list_1D[i], t_list_1D[i],phi_list_init[i], phi_list_final[i], t_list_2D[i], max_T, noise, remove_indices)
 
                 # now we need to add the pars and scores to offline_mt
                 scores_offline_mt.append(res_score - 0.1*time_score)

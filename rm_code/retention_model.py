@@ -421,3 +421,64 @@ def offline_system(ret_pars, settings_1D, settings_2D, phi_list_1D, t_list_1D, p
     _, _, _, res_score = resolution_score_2D(tR_list_1D, tR_list_2D, W_list_1D, W_list_2D, max_time=max_T)
     time_score = np.max(tR_list_1D) * 0.1
     return tR_list_1D, W_list_1D, tR_list_2D, W_list_2D, res_score, time_score
+
+def offline_system2(ret_pars, settings_1D, settings_2D, phi_list_1D, t_list_1D, phi_init_2D, phi_final_2D, t_list_2D, max_T, noise, remove_indices):
+    """
+    This function computes the retention times and widths for a given retention model and retention parameters and adds noise to the retention times and widths. It also removes some peaks from the data using remove_indices.
+
+    Args
+    ret_pars: dictionary with retention parameters
+    settings_1D: dictionary with 1D retention model settings
+    settings_2D: dictionary with 2D retention model settings
+    phi_list_1D: list of phi values for 1D gradient
+    t_list_1D: list of time values for 1D gradient
+    phi_init_2D: list of initial phi values for 2D gradient
+    phi_final_2D: list of final phi values for 2D gradient
+    t_list_2D: list of time values for 2D gradient
+    max_T: list of maximum times for 1D and 2D.
+    noise: dictionary with noise parameters
+    remove_indices: list of indices of peaks to remove
+
+    Returns
+    tR_list_1D: list of retention times for 1D gradient
+    W_list_1D: list of widths for 1D gradient
+    tR_list_2D: list of retention times for 2D gradient
+    W_list_2D: list of widths for 2D gradient
+    res_score: resolution score
+    """
+
+    # compute retention times and widths
+    tR_list_1D, W_list_1D = compute_chromatogram_1D(ret_pars, settings_1D, phi_list_1D, t_list_1D)
+
+    # add noise to the retention times and widths of 1D only
+    tR_list_1D = tR_list_1D + np.random.normal(0, noise['tR_1D'], len(tR_list_1D))
+    W_list_1D = W_list_1D + np.abs(np.random.normal(0, noise['W_1D'], len(W_list_1D)))
+
+    # compute retention times and widths for 2D given the noisy 1D retention times
+    tR_list_2D, W_list_2D = compute_chromatogram_2D(ret_pars, settings_2D,  tR_list_1D, phi_init_2D, phi_final_2D, t_list_2D)
+
+    # remove peaks
+    tR_list_1D = np.delete(tR_list_1D, remove_indices)
+    tR_list_2D = np.delete(tR_list_2D, remove_indices)
+    W_list_1D = np.delete(W_list_1D, remove_indices)
+    W_list_2D = np.delete(W_list_2D, remove_indices)
+
+    # check if there are any negative values
+    # if np.any(tR_list_1D < 0) or np.any(tR_list_2D < 0) or np.any(W_list_1D < 0) or np.any(W_list_2D < 0):
+    #     print('Negative values in retention times or widths')
+    #     # print in which list the negative values are
+    #     print('tR_list_1D: ', np.any(tR_list_1D < 0))
+    #     print('tR_list_2D: ', np.any(tR_list_2D < 0))
+    #     print('W_list_1D: ', np.any(W_list_1D < 0))
+    #     print('W_list_2D: ', np.any(W_list_2D < 0))
+
+    # make values positive
+    tR_list_1D = np.abs(tR_list_1D)
+    tR_list_2D = np.abs(tR_list_2D)
+    W_list_1D = np.abs(W_list_1D)
+    W_list_2D = np.abs(W_list_2D)
+
+    # compute resolution score
+    _, _, _, res_score = resolution_score_2D(tR_list_1D, tR_list_2D, W_list_1D, W_list_2D, max_time=max_T)
+    time_score = np.max(tR_list_1D) * 0.1
+    return tR_list_1D, W_list_1D, tR_list_2D, W_list_2D, res_score, time_score
