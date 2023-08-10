@@ -17,7 +17,7 @@ import pandas as pd
 tkwargs = (
     {  # Dictionary containing information about data type and data device
         "dtype": torch.double,
-        "device": torch.device("cpu") if torch.cuda.is_available() else torch.device("cpu"),
+        "device": torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu"),
     }
 )
 # Writing the dictionary to a DataFrame
