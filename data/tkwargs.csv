@@ -1,2 +1,2 @@
 dtype,device
-torch.float64,cuda
+torch.float64,cpu

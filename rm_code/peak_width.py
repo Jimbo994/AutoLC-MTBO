@@ -15,7 +15,11 @@ def get_peak_width_isocratic(N, t_0, k):
 def get_G(cum_sum_w, k_phi_r, k_phi_init, t_D, t_0, t_init):
     """Return peak compression factor G."""
     G2 = (k_phi_r**2/(t_0 * (1 + k_phi_r)**2)) * ( ( ((t_D + t_init)*((1 + k_phi_init)**2))/k_phi_init**3 ) + cum_sum_w )
-    G = math.sqrt(G2)
+    try:
+        G = math.sqrt(G2)
+    except:
+        print("G2 = ", G2)
+        G = 0.1
     return(G)
 
 

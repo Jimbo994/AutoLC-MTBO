@@ -152,7 +152,7 @@ def plot_shifting_2D_gradient(settings_2D, phi_init, phi_final, t_list):
             phi_final_init = phi_final_slope * (time + tG + tau - t_list[idx-1]) + phi_final[idx-1]
             phi_final_inter = phi_final_slope * (time + tM - t_list[idx-1]) + phi_final[idx-1]
 
-            ax.plot(ts, [phi_init_init, phi_init_inter, phi_final_init, phi_final_inter, phi_init_final], color='tab:orange')
+            ax.plot(ts, [phi_init_init, phi_init_inter, phi_final_init, phi_final_inter, phi_init_final], color='tab:orange', linewidth=0.3)
 
         # if this is not the case, we need to be a bit more careful and check at each stage in what shifting segment we are
         # we currently assume that one modulation is at max between two segments, so it assumed that

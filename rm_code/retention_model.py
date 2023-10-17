@@ -314,13 +314,19 @@ def compute_chromatogram_2D(ret_pars, settings_2D, tR_list_1D, phi_init_2D,
     for tR, k0, S in zip(tR_list_1D, k0_list_2D, S_list_2D):
         # check in which modulation we are and get respective 2D program of that modulation
         # print(tR)
-        mod, _, _, ts, phis = get_modulation_program(tR, t0_2D, tI_2D, tD_2D, tG_2D, tM_2D, phi_init_2D, phi_final_2D,
+        # check if tR is None, if so, then we just append None to the list and continue
+        if np.isnan(tR):
+            print(tR, 'is None')
+            tR_2D = 30
+            W_2D = 1
+        else:
+            mod, _, _, ts, phis = get_modulation_program(tR, t0_2D, tI_2D, tD_2D, tG_2D, tM_2D, phi_init_2D, phi_final_2D,
                                                      t_list_2D)
 
-        # now given this 2D gradient and k0 and S we can compute the retention time and peak width
-        # we already have the init time in the phis and ts, so we can just set those to 0.
-        # this init time might actually not be isocratic due to the shift boundaries, which is why we chose this design.
-        tR_2D, W_2D = retention_time_multisegment_gradient(k0, S, t0_2D, tD_2D, 0, phis, ts, N_2D)
+            #   now given this 2D gradient and k0 and S we can compute the retention time and peak width
+            # we already have the init time in the phis and ts, so we can just set those to 0.
+            # this init time might actually not be isocratic due to the shift boundaries, which is why we chose this design.
+            tR_2D, W_2D = retention_time_multisegment_gradient(k0, S, t0_2D, tD_2D, 0, phis, ts, N_2D)
 
         # append to list
         tR_list_2D.append(tR_2D)
@@ -357,7 +363,7 @@ def online_system(ret_pars, settings_1D, settings_2D, phi_list_1D, t_list_1D, ph
 
     # compute resolution score
     _, _, _, res_score = resolution_score_2D(tR_list_1D, tR_list_2D, W_list_1D,  W_list_2D, max_time=max_T)
-    time_score = np.max(tR_list_1D)
+    time_score = np.max(tR_list_1D) * 0.1
     return tR_list_1D, W_list_1D, tR_list_2D, W_list_2D, res_score, time_score
 
 def offline_system(ret_pars, settings_1D, settings_2D, phi_list_1D, t_list_1D, phi_init_2D, phi_final_2D, t_list_2D, max_T, noise, remove_indices):
@@ -451,17 +457,18 @@ def offline_system2(ret_pars, settings_1D, settings_2D, phi_list_1D, t_list_1D, 
     tR_list_1D, W_list_1D = compute_chromatogram_1D(ret_pars, settings_1D, phi_list_1D, t_list_1D)
 
     # add noise to the retention times and widths of 1D only
-    tR_list_1D = tR_list_1D + np.random.normal(0, noise['tR_1D'], len(tR_list_1D))
-    W_list_1D = W_list_1D + np.abs(np.random.normal(0, noise['W_1D'], len(W_list_1D)))
+    #tR_list_1D = tR_list_1D + np.random.normal(0, noise['tR_1D'], len(tR_list_1D))
+    #W_list_1D = W_list_1D + np.abs(np.random.normal(0, noise['W_1D'], len(W_list_1D)))
 
     # compute retention times and widths for 2D given the noisy 1D retention times
     tR_list_2D, W_list_2D = compute_chromatogram_2D(ret_pars, settings_2D,  tR_list_1D, phi_init_2D, phi_final_2D, t_list_2D)
-
+    #print(len(tR_list_1D), len(tR_list_2D), len(W_list_1D), len(W_list_2D))
     # remove peaks
     tR_list_1D = np.delete(tR_list_1D, remove_indices)
     tR_list_2D = np.delete(tR_list_2D, remove_indices)
     W_list_1D = np.delete(W_list_1D, remove_indices)
     W_list_2D = np.delete(W_list_2D, remove_indices)
+    #print(len(tR_list_1D), len(tR_list_2D), len(W_list_1D), len(W_list_2D))
 
     # check if there are any negative values
     # if np.any(tR_list_1D < 0) or np.any(tR_list_2D < 0) or np.any(W_list_1D < 0) or np.any(W_list_2D < 0):

@@ -5,7 +5,7 @@ import numpy as np
 
 import pandas as pd
 
-# Reading the CSV file back into a DataFrame
+#Reading the CSV file back into a DataFrame
 df_read = pd.read_csv('data/tkwargs.csv')
 
 # Converting DataFrame back to a dictionary
@@ -62,7 +62,7 @@ def bo_to_rm_2D(pars, fixed_phi_pars_1D, fixed_time_pars_1D, fixed_phi_pars_2D, 
 
     t_list_1D = torch.cat((fixed_time_pars_1D[0].repeat(shape[0], 1).to(**tkwargs), pars[:,2:4].to(**tkwargs), fixed_time_pars_1D[1].repeat(shape[0], 1).to(**tkwargs)), axis=1)
     phi_list_1D = torch.cat((fixed_phi_pars_1D[0].repeat(shape[0], 1).to(**tkwargs), pars[:,0:2].to(**tkwargs), fixed_phi_pars_1D[1].repeat(shape[0], 1).to(**tkwargs))
-    ,axis=1)
+    , axis=1)
 
     t_list_2D = torch.cat((fixed_time_pars_2D[0].repeat(shape[0], 1).to(**tkwargs), fixed_time_pars_2D[1].repeat(shape[0], 1).to(**tkwargs), pars[:, 10:12].to(**tkwargs), fixed_time_pars_2D[2].repeat(shape[0], 1).to(**tkwargs)), axis=1)
     phi_list_init = torch.cat((fixed_phi_pars_2D[0].repeat(shape[0], 1).to(**tkwargs), fixed_phi_pars_2D[0].repeat(shape[0], 1).to(**tkwargs), pars[:, 4:7].to(**tkwargs)), axis=1)
