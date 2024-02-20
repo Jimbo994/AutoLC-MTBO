@@ -2,7 +2,11 @@
 
 Code related to publication titled [Enhancing LC×LC separations through Multi-Task Bayesian Optimization](https://doi.org/10.26434/chemrxiv-2024-5mmvj)
 
-<img src="/figures/bo_vs_mtbo_realsample.png" width="1000"/>
+<div style="display: flex; justify-content: space-between;">
+  <img src="/figures/cross_val_single_task.png" width="300"/>
+  <img src="/figures/cross_val_multi_task.png" width="300"/>
+</div>
+
 
 This repository contains information regarding 
 
@@ -20,7 +24,7 @@ conda activate AutoLC-MTO
 
 The actual code used for testing the algorithm on the real experiments is very similar but is less straightforward to run as it requires an advanced laboratory setup. Please do not hesitate to contact me if you need further clarifications on this.
 
-When using this code, please cite: [![DOI:10.26434/chemrxiv-2024-5mmvj](http://img.shields.io/badge/DOI-10.26434/chemrxiv-2024-5mmvj.svg)](https://doi.org/10.26434/chemrxiv-2024-5mmvj)
+When using this code, please cite: [![DOI:10.26434/chemrxiv-2024-5mmvj](http://img.shields.io/badge/DOI-10.26434/chemrxiv-2024-5mmvj-B31B1B.svg)](https://doi.org/10.26434/chemrxiv-2024-5mmvj)
 
 This work is licensed under a
 [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License][cc-by-nc-sa].
