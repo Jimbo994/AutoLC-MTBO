@@ -1,5 +1,0 @@
-pip install jupyterlab (did not make things work)
-pip install botorch
-pip install matplotlib
-conda install ipykernel
-pip install notebook (did make things work)

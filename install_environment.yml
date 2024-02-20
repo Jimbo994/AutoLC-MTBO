@@ -1,0 +1,17 @@
+name: AutoLC_MTBO
+channels:
+  - defaults
+  - pytorch
+dependencies:
+  - python==3.8.13
+  - pip
+  - pytorch==1.11.0
+  - pip:
+    - jupyter
+    - gpytorch==1.6.0
+    - botorch==0.6.4
+    - ax-platform==0.2.5.1
+    - matplotlib
+    - seaborn
+    - typeguard==2.13.3 
+    - typing-extensions==4.1.1
