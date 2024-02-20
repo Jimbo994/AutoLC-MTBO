@@ -4,7 +4,10 @@ Code related to publication titled [Enhancing LC×LC separations through Multi-T
 
 <img src="/figures/bo_vs_mtbo_realsample.png" width="1000"/>
 
-The provided notebooks follows the synthetic example described in Section 4.1 of the paper. A logical order to follow while viewing the notebooks is:
+This repository contains information regarding 
+
+Order of notebooks:
+
 - setting_up_a_2DLC_system.ipynb
 - cross_validation.ipynb
 - ax_mtbo.ipynb
@@ -21,8 +24,6 @@ When using this code, please cite: [![DOI:10.26434/chemrxiv-2024-5mmvj](http://i
 
 This work is licensed under a
 [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License][cc-by-nc-sa].
-
-[![CC BY-NC-SA 4.0][cc-by-nc-sa-image]][cc-by-nc-sa]
 
 [cc-by-nc-sa]: http://creativecommons.org/licenses/by-nc-sa/4.0/
 [cc-by-nc-sa-image]: https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png
