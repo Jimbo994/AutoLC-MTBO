@@ -22,7 +22,7 @@ conda env create --file install_environment.yml
 conda activate AutoLC-MTO
 ```
 
-The actual code used for testing the algorithm on the real experiments is very similar but is less straightforward to run as it requires an advanced laboratory setup. Please do not hesitate to contact me if you need further clarifications on this.
+The actual code used for testing the algorithm on the real experiments is very similar but is less straightforward to run as it requires an advanced laboratory setup. Please do not hesitate to contact me if you need further clarification on this.
 
 When using this code, please cite: [![DOI:10.26434/chemrxiv-2024-5mmvj](http://img.shields.io/badge/DOI-10.26434/chemrxiv.2024.5mmvj.B31B1B.svg)](https://doi.org/10.26434/chemrxiv-2024-5mmvj)
 
