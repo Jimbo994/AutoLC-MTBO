@@ -8,9 +8,7 @@ Code related to publication titled [Enhancing LC×LC separations through Multi-T
 </div>
 
 
-This repository contains information regarding 
-
-Order of notebooks:
+The provided notebooks follow the synthetic example described in Section 4.1 of the paper. A logical order to follow while viewing the notebooks is:
 
 - setting_up_a_2DLC_system.ipynb
 - cross_validation.ipynb
